@@ -1,0 +1,28 @@
+.text{
+    width: 400px;
+    height: 100px;
+}
+
+.center{
+    position: fixed;
+    top: 20%;
+    left: 20%;
+    margin-top: -50px;
+    margin-left: -50px;
+}
+
+body {
+    background: #8d2f4b;
+}
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+
+}
+    th, td {
+        padding: 15px;
+        text-align: center;
+}
+</style>

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+
+
+{% block title %}
+    {% for q in question %}
+    {{ q.title}}
+{% endfor %}
+{% endblock %}
+
+
+{% block body %}
+{% for q in question %}
+<h1 class="text-white">{{ q.title }}</h1>
+{% endfor %}
+<table class="table table-striped table-dark">
+    <tr>
+        {% for header in headers_list %}
+        <th scope="col">{{ header.column_name }}</th>
+        {% endfor %}
+    </tr>
+    <tr>
+        {% for q in question %}
+            {% for key in q %}
+            {% if q[key] == q.image %}
+                {% if q.image == None %}
+                    <th>{{ 'No' }}</th>
+                {% else %}
+                    <th> <img src="{{ url_for('static', filename = 'uploads_question/'+  q.image )}}" alt={{ image_for_question }} width="200" height="200"/></th>
+                {% endif %}
+            {% else %}
+                    <th>{{ q[key] }}</th>
+
+            {% endif %}
+         {% endfor %}
+    {% endfor %}
+    </tr>
+</table>
+
+
+
+{% for q in question %}
+    <a href="{{ url_for("new_answer", question_id=q.id) }}"><h1 class="text-white font-size float-right">Post an answer</h1></a>
+ {% endfor %}
+
+
+<table class="table table-striped table-dark">
+    <tr>
+    {% if answers|length > 0 %}
+        {% for a in answer_headers %}
+            <th scope="col"> {{ a }}</th>
+        {% endfor %}
+    {% endif %}
+    </tr>
+
+    {% for answer in answers %}
+        <tr>
+        {% for key_a in answer %}
+            {% if answer[key_a] == answer.image %}
+                {% if answer.image == None %}
+                    <th scope="row">{{ 'No' }}</th>
+                {% else %}
+                    <th scope="row"> <img src="{{ url_for('static', filename = 'uploads_answer/'+answer.image) }}" alt={{ image_for_answer }} width="200" height="200" /></th>
+                {% endif %}
+            {% else %}
+                    <th>{{  answer[key_a] }}</th>
+
+            {% endif %}
+        {% endfor %}
+            <th> <a href="{{ url_for('answer_delete',question_id=answer.question_id, answer_id=answer.id) }}"  class="btn btn-outline-light">Delete</a> </th>
+
+                <th> <form action={{ url_for('vote_answer_up', answer_id=answer.id, question_id=answer.question_id)}} method="post">
+                            <label for="like"></label>
+                            <input type="submit" class="btn btn-info" name="like" id="like" value="Like!">
+                        </form> </th>
+
+                <th> <form action={{ url_for('vote_answer_down', answer_id=answer.id, question_id=answer.question_id )}} method="post">
+                            <label for="'dislike"></label>
+                            <input type="submit" class="btn btn-light" name="dislike" id="dislike" value="Dislike!">
+
+                        </form> </th>
+ </tr>
+    {% endfor %}
+
+    </tr>
+
+</table>
+
+{% endblock %}
+
+

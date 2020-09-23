@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{#    {% block style %}#}
+{##}
+{#    {% endblock %}#}
+
+{% block title %} New Answer {% endblock %}
+
+
+{% block body %}
+
+ <div class="raise-center">
+
+        <h3 class="text-white">Add the answer</h3>
+
+            <form  class="form-style" method="post" action={{ url_for("new_answer", question_id=question_id) }} enctype="multipart/form-data">
+
+            <textarea class="text  size" type ="text" name="message"></textarea><br>
+
+            <div class="custom-file">
+            <input type="file" class="custom-file-input" name="image" lang="eng">
+            <label class="custom-file-label" for="image" >Select an image</label>
+            </div>
+            <div class="left">
+                </br> <input type="submit"  class="btn btn-info"  value="Submit">
+            </div>
+{#                <input type="file" class="custom-file-input" name="image" id="image">#}
+{#                <<input class="file-path validate" type="text" placeholder="Upload your file">#}
+ </div>
+            </form>
+
+{% endblock %}

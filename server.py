@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request, url_for
-from functions import answers, questions, generate_new_id
+from functions import generate_new_id
 from werkzeug.utils import secure_filename
 import os
 import data_manager
@@ -54,7 +54,7 @@ def list_page():
 def new_question():
 
     if request.method == 'POST':
-
+        questions = []
         filename = upload_file(questions, app.config['UPLOAD_FOLDER_Q'])
 
         new_question_title = request.form['Title']
@@ -111,7 +111,7 @@ def question_answer(question_id):
 def new_answer(question_id):
 
     if request.method == 'POST':
-
+        answers = []
         filename = upload_file(answers, app.config['UPLOAD_FOLDER_A'])
 
         new_answer_message = request.form['message']
